@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <form style="display: flex; justify-content: center; transform: scale(1.2); margin-top: 4rem;" onsubmit="readOutLoud(mess.value)">
+        <input id='txt' type="text" placeholder='txt'>
+        <input id='select' type="submit" value='submit'>
+    </form>
+
+    <div id="pitch"></div>
+    <div id="pitch-value"></div>
+    <div id="rate"></div>
+    <div id="rate-value"></div>
+</body>
+
+<script>
+
+    var synth = window.speechSynthesis;
+
+    var inputForm = document.querySelector('form');
+    var inputTxt = document.getElementById('txt');
+    var voiceSelect = document.getElementById('select');
+
+    var pitch = document.getElementById('pitch');
+    var pitchValue = document.getElementById('pitch-value');
+    var rate = document.getElementById('rate');
+    var rateValue = document.getElementById('rate-value');
+
+
+    var voices = [];
+
+    function populateVoiceList() {
+        voices = synth.getVoices();
+
+        for (var i = 0; i < voices.length; i++) {
+            var option = document.createElement('option');
+            option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
+
+            if (voices[i].default) {
+                option.textContent += ' -- DEFAULT';
+            }
+
+            option.setAttribute('data-lang', voices[i].lang);
+            option.setAttribute('data-name', voices[i].name);
+            voiceSelect.appendChild(option);
+        }
+    }
+
+    populateVoiceList();
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = populateVoiceList;
+    }
+
+    inputForm.onsubmit = function (event) {
+        event.preventDefault();
+
+        var utterThis = new SpeechSynthesisUtterance(inputTxt.value);
+        var selectedOption = voiceSelect.selectedOptions[0].getAttribute('data-name');
+        for (var i = 0; i < voices.length; i++) {
+            if (voices[i].name === selectedOption) {
+                utterThis.voice = voices[i];
+            }
+        }
+        utterThis.pitch = pitch.value;
+        utterThis.rate = rate.value;
+        synth.speak(utterThis);
+
+        // inputTxt.blur();
+    }
+
+
+</script>
+
+</html>

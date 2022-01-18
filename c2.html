@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<body style="overflow: hidden;">
+
+    <button onclick="sum()" id='btn1'
+        style="display: block;margin:5rem auto;padding: 5px 10px;background:rgb(151, 144, 144)(151, 144, 144);">click</button>
+
+</body>
+<script>
+    
+    
+    
+    
+    
+    
+    var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    
+    var recognition = new SpeechRecognition();
+    
+    var speech = new SpeechSynthesisUtterance();
+    
+    var synth = window.speechSynthesis;
+
+
+
+
+
+    recognition.onstart = function () {
+        instructions.text('Voice recognition activated. Try speaking into the microphone.');
+    }
+
+
+
+
+
+    recognition.onspeechend = function () {
+        instructions.text('You were quiet for a while so voice recognition turned itself off.');
+    }
+
+
+
+
+
+    recognition.onerror = function (event) {
+        if (event.error == 'no-speech') {
+            instructions.text('No speech was detected. Try again.');
+        };
+    }
+
+
+
+
+
+
+    recognition.onresult = function (event) {
+        var transcript = event.results[event.resultIndex][0].transcript;
+
+        speech.text = transcript;
+
+        speech.volume = 1;
+
+        speech.rate = 1;
+
+        speech.pitch = 1;
+
+        console.log(transcript);
+
+        window.speechSynthesis.speak(speech);
+
+    }
+
+
+    var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
+
+    if (!mobileRepeatBug) {
+
+        noteContent += transcript;
+
+        noteTextarea.val(noteContent);
+
+
+    }
+
+
+
+    function sum() {
+        recognition.start();
+    }
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>
+
+

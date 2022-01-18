@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fa">
+<body style="overflow: hidden;">
+    <form style="display: flex; justify-content: center; transform: scale(2); margin-top: 7rem;"
+     onsubmit="readOutLoud(mess.value)">
+        <input id='mess' name='mess' type="text" placeholder='mess'>
+        <input type="submit" value='submit'>
+    </form>
+</body>
+<script>
+    function readOutLoud(message) {
+        var speech = new SpeechSynthesisUtterance();
+
+        speech.text = message;
+
+        speech.volume = 1;
+
+        speech.rate = 1;
+
+        speech.pitch = 1;
+
+        window.speechSynthesis.speak(speech);
+    }
+</script>
+</html>

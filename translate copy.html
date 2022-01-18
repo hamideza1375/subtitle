@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>translat</title>
+</head>
+
+<body>
+
+    <div id="google_translate_element">
+
+        <div id="sum">hello</div>
+
+    </div>
+
+
+    <button onclick="sum()" id='btn1'
+        style="display: block;margin:5rem auto;padding: 5px 10px;background:rgb(151, 144, 144)(151, 144, 144);">click</button>
+
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() { new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element'); }
+    </script>
+
+    <script type="text/javascript"
+        src="./translat.js"></script>
+        <!-- src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
+
+    <script>
+
+
+
+
+
+
+        var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        var recognition = new SpeechRecognition();
+
+        var speech = new SpeechSynthesisUtterance();
+
+        var synth = window.speechSynthesis;
+
+
+
+
+
+        recognition.onstart = function () {
+            instructions.text('Voice recognition activated. Try speaking into the microphone.');
+        }
+
+
+
+
+
+        recognition.onspeechend = function () {
+            instructions.text('You were quiet for a while so voice recognition turned itself off.');
+        }
+
+
+
+
+
+        recognition.onerror = function (event) {
+            if (event.error == 'no-speech') {
+                instructions.text('No speech was detected. Try again.');
+            };
+        }
+
+
+
+
+
+
+        recognition.onresult = function (event) {
+            var transcript = event.results[event.resultIndex][0].transcript;
+
+            speech.text = transcript;
+
+            speech.volume = 1;
+
+            speech.rate = 1;
+
+            speech.pitch = 1;
+
+            document.getElementById("sum").innerHTML = transcript;
+
+            window.speechSynthesis.speak(speech);
+
+        }
+
+
+        var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
+
+        if (!mobileRepeatBug) {
+
+            noteContent += transcript;
+
+            noteTextarea.val(noteContent);
+
+
+        }
+
+
+
+        function sum() {
+            recognition.start();
+        }
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

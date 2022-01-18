@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>translat</title>
+</head>
+
+<body>
+
+    <div id="google_translate_element">
+
+        <form onsubmit="sum(event)">
+            <input type="submit" value="sub" id="">
+            <input id="s1" style="transform: scale(1.4); margin:0 auto; display: block;" type="text">
+        </form>
+
+        <div style="margin: 1rem auto;" id="s2"></div>
+    </div>
+
+
+    <button onclick="sum()" id='btn1'
+        style="display: block;margin:5rem auto;padding: 5px 10px;background:rgb(151, 144, 144)(151, 144, 144);">click</button>
+
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() { new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element'); }
+    </script>
+
+    <script type="text/javascript" src="./translat.js"></script>
+
+    <script>
+        function sum(e) {
+            e.preventDefault()
+            document.getElementById('s2').innerHTML = document.getElementById('s1').value
+            return false
+        }
+    </script>
+</body>
+
+</html>
